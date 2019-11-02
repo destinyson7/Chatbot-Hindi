@@ -17,9 +17,9 @@ with open(sys.argv[1], 'r') as f:
             roots.append(cur_root)
             pos_tags.append(cur_pos)
 
-            print(cur_sentence)
-            print(cur_root)
-            print(cur_pos)
+            print("Sentence: " + cur_sentence)
+            print("Lemmatized Form: " + cur_root)
+            print("POS Tags: " + cur_pos)
             print()
 
             cur_sentence = ""
