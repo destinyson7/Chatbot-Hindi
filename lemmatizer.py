@@ -1,13 +1,14 @@
 import sys
 count = 0
-w = 0
 
 sentences = []
 roots = []
 pos_tags = []
+
 cur_sentence = ""
 cur_root = ""
 cur_pos = ""
+
 with open(sys.argv[1], 'r') as f:
     for line in f:
 

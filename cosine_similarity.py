@@ -1,7 +1,5 @@
-import sys
-
-first_sentence = "यह योजना का एक बड़ी खामी यह है कि महंगाई दर से यह सब्सिडी को जोड़ा नहीं जा है"
-second_sentence = "दिल्ली शहरी इलाका है"
+first_sentence = "योजना एक बड़ी खामी महंगाई दर सब्सिडी जोड़ा नहीं जा"
+second_sentence = "महंगाई दर सब्सिडी दिल्ली शहरी इलाका जोड़ा नहीं जा"
 
 array_first = first_sentence.split(" ")
 array_second = second_sentence.split(" ")
