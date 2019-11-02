@@ -1,0 +1,55 @@
+<Sentence id="1">
+1 (( NP <fs af='योजना,n,f,sg,3,o,0,0' head='yojanA'>
+1.1 इस DEM <fs af='यह,pn,any,sg,3,o,0,0' name='isa'>
+1.2 योजना NN <fs af='योजना,n,f,sg,3,o,0,0' name='yojanA'>
+1.3 की PSP <fs af='का,psp,f,sg,,d,का,kA' name='kI'>
+))
+2 (( NP <fs af='खामी,n,f,sg,3,d,0,0' head='KAmI'>
+2.1 एक QC<fs af='एक,adj,any,any,,any,,' name='eka'>
+2.2 बड़ी JJ<fs af='बड़ी,adj,f,any,,any,,' name='badZI'>
+2.3 खामी NN<fs af='खामी,n,f,sg,3,d,0,0' name='KAmI'>
+))
+3 (( NP <fs af='यह,pn,any,sg,3,d,0,0' head='yaha'>
+3.1 यह PRP <fs af='यह,pn,any,sg,3,d,0,0' name='yaha'>
+))
+4 (( VGF <fs af='है,v,any,sg,2,,है,hE' head='hE'>
+4.1 है VM <fs af='है,v,any,sg,2,,है,hE' name='hE'>
+))
+5 (( CCP <fs af='कि,avy,,,,,,' head='ki'>
+5.1 कि CC <fs af='कि,avy,,,,,,' name='ki'>
+))
+6 (( NP <fs af='दर,n,f,sg,3,o,0,0' head='xara'>
+6.1 महंगाई NNC <fs af='महंगाई,n,f,sg,3,d,0,0' name='mahaMgAI'>
+6.2 दर NN <fs af='दर,n,f,sg,3,o,0,0' name='xara'>
+6.3 से PSP <fs af='से,psp,,,,,,' name='se'>
+))
+7 (( NP <fs af='सब्सिडी,n,f,sg,3,o,0,0' head='sabsidI'>
+7.1 इस DEM <fs af='यह,pn,any,sg,3,o,0,0' name='isa2'>
+7.2 सब्सिडी NN <fs af='सब्सिडी,n,f,sg,3,o,0,0' name='sabsidI'>
+7.3 को PSP <fs af='को,psp,,,,,,' name='ko'>
+))
+8 (( VGF <fs af='जोड़ा,v,any,any,any,,0,0' head='jodZA'>
+8.1 जोड़ा VM <fs af='जोड़ा,v,any,any,any,,0,0' name='jodZA'>
+8.2 नहीं NEG <fs af='नहीं,adv,,,,,,' name='nahIM'>
+8.3 गया VAUX<fs af='जा,v,m,sg,any,,या1,yA1' name='gayA'>
+8.4 है VAUX <fs af='है,v,any,sg,2,,है,hE' name='hE2'>
+))
+9 (( BLK <fs af='.,punc,,,,,,' head='.'>
+9.1 . SYM <fs af='.,punc,,,,,,' name='.'>
+))
+</Sentence>
+<Sentence id="2">
+1 (( NP <fs af='दिल्ली,n,f,sg,3,d,0,0' head='xillI'>
+1.1 दिल्ली NNP <fs af='दिल्ली,n,f,sg,3,d,0,0' name='xillI'>
+))
+2 (( NP <fs af='इलाका,n,m,sg,3,d,0,0' head='ilAkA'>
+2.1 शहरी JJ <fs af='शहरी,adj,any,any,,any,,' name='SaharI'>
+2.2 इलाका NN <fs af='इलाका,n,m,sg,3,d,0,0' name='ilAkA'>
+))
+3 (( VGF <fs af='है,v,any,sg,2,,है,hE' head='hE'>
+3.1 है VM <fs af='है,v,any,sg,2,,है,hE' name='hE'>
+))
+4 (( BLK <fs af='.,punc,,,,,,' head='.'>
+4.1 . SYM <fs af='.,punc,,,,,,' name='.'>
+))
+</Sentence>
