@@ -1,10 +1,10 @@
 <Sentence_id=1>
-इस योजना की एक बड़ी खामी यह है कि महंगाई दर से इस सब्सिडी को जोड़ा नहीं गया है . 
-यह योजना का एक बड़ी खामी यह है कि महंगाई दर से यह सब्सिडी को जोड़ा नहीं जा है . 
-DEM NN PSP QC JJ NN PRP VM CC NNC NN PSP DEM NN PSP VM NEG VAUX VAUX SYM 
+Sentence: इस योजना की एक बड़ी खामी यह है कि महंगाई दर से इस सब्सिडी को जोड़ा नहीं गया है . 
+Lemmatized Form: यह योजना का एक बड़ी खामी यह है कि महंगाई दर से यह सब्सिडी को जोड़ा नहीं जा है . 
+POS Tags: DEM NN PSP QC JJ NN PRP VM CC NNC NN PSP DEM NN PSP VM NEG VAUX VAUX SYM 
 
 <Sentence_id=2>
-दिल्ली शहरी इलाका है . 
-दिल्ली शहरी इलाका है . 
-NNP JJ NN VM SYM 
+Sentence: दिल्ली शहरी इलाका है . 
+Lemmatized Form: दिल्ली शहरी इलाका है . 
+POS Tags: NNP JJ NN VM SYM 
 
