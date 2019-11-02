@@ -6,6 +6,8 @@ second_sentence = "दिल्ली शहरी इलाका है"
 array_first = first_sentence.split(" ")
 array_second = second_sentence.split(" ")
 
+# We will also remove all the stop words from both the sets later
+
 set_first = {word for word in array_first}
 set_second = {word for word in array_second}
 
