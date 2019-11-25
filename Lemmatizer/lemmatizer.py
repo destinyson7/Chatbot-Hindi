@@ -1,6 +1,10 @@
 import sys
 import re
 import requests
+import bs4 as bs
+import urllib.request
+import urllib.parse
+import nltk
 
 sentences = []
 roots = []
@@ -27,25 +31,56 @@ def lemmatize(line):
     pos_tags.append(cur_pos)
 
 
-with open('./../Data/clean_data.txt', 'r') as f:
-    for line in f:
+def parse():
+    name = query + ".txt"
+    with open(name, 'r') as f:
+        for line in f:
 
-        headers = {'Content-Type': 'application/json'}
+            headers = {'Content-Type': 'application/json'}
 
-        data = '{"text":"' + line.strip() + '"}'
-        response = requests.post('http://10.2.6.249:8010/shallow_parse_hin', headers=headers, data=data.encode('utf-8'))
+            data = '{"text":"' + line.strip() + '"}'
+            response = requests.post('http://10.2.6.249:8010/shallow_parse_hin', headers=headers, data=data.encode('utf-8'))
 
-        lemmatize(response.text)
+            lemmatize(response.text)
 
-sentence = open("data_sentences.txt", 'w', encoding='utf-8')
-root = open("data_roots.txt", 'w', encoding='utf-8')
-pos_tag = open("data_pos_tags.txt", 'w', encoding='utf-8')
+    sentence = open("data_sentences.txt", 'w', encoding='utf-8')
+    root = open("data_roots.txt", 'w', encoding='utf-8')
+    pos_tag = open("data_pos_tags.txt", 'w', encoding='utf-8')
 
-for i in range(0, len(sentences)):
-    sentence.write(sentences[i] + '\n')
-    pos_tag.write(pos_tags[i] + '\n')
-    root.write(roots[i] + '\n')
+    for i in range(0, len(sentences)):
+        sentence.write(sentences[i] + '\n')
+        pos_tag.write(pos_tags[i] + '\n')
+        root.write(roots[i] + '\n')
 
-sentence.close()
-root.close()
-pos_tag.close()
+    sentence.close()
+    root.close()
+    pos_tag.close()
+
+
+query = 'भारत'
+url_path = urllib.parse.quote(query)
+raw_html = urllib.request.urlopen("https://hi.wikipedia.org/wiki/" + url_path)
+raw_html = raw_html.read()
+
+html = bs.BeautifulSoup(raw_html, 'lxml')
+
+paragraphs = html.find_all('p')
+
+data = ''
+
+for para in paragraphs:
+    data += para.text
+
+data = re.sub(r'\[[0-9]*\]', ' ', data)
+data = re.sub(r'\s+', ' ', data)
+data = re.sub(r'<.*>', '', data)
+data = data.replace('। ', '।\n')
+data = re.sub(r'।.', '।\n', data)
+data = data.replace('"', '$')
+data = data.split("\n")
+print(data)
+
+sent = open(query + ".txt", 'w', encoding='utf-8')
+
+for i in range(0, len(data)):
+    sent.write(data[i] + '\n')

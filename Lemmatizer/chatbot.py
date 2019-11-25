@@ -1,3 +1,6 @@
+import requests
+import re
+
 sentences = []
 roots = []
 pos_tags = []
@@ -19,8 +22,6 @@ with open('stop_words.txt', 'r') as f:
     for line in f:
         stopwords.append(line.split("\n")[0])
 
-print(stopwords)
-
 
 def lemmatize(line):
     cur_root = ""
@@ -34,15 +35,73 @@ def lemmatize(line):
     return cur_root
 
 
-# while True:
-#     query = input()
+def cosine_similarity(first_sentence):
+    array_first = first_sentence.split(" ")
 
-#     if query == "Bye":
-#         break
+    max_cos = -1
+    max_i = -1
 
-#     headers = {'Content-Type': 'application/json'}
+    for i in range(0, len(sentences)):
+        array_second = sentences[i].split(" ")
 
-#     data = '{"text":"' + query.strip() + '"}'
-#     response = requests.post('http://10.2.6.249:8010/shallow_parse_hin', headers=headers, data=data.encode('utf-8'))
+        # We will also remove all the stop words from both the sets later
 
-#     lemmatized_query = lemmatize(response.text)
+        set_first = {word for word in array_first if not word in stopwords}
+        set_second = {word for word in array_second if not word in stopwords}
+
+        union = set_first.union(set_second)
+
+        # print(union)
+
+        sum_first = 0
+        sum_second = 0
+
+        numerator = 0
+
+        for word in union:
+
+            a = 0
+            b = 0
+
+            if word in set_first:
+                a = 1
+
+            else:
+                a = 0
+
+            if word in set_second:
+                b = 1
+
+            else:
+                b = 0
+
+            sum_first = sum_first + a
+            sum_second = sum_second + b
+
+            numerator = numerator + a * b
+
+        cos = numerator / float((sum_first * sum_second)**0.5)
+
+        if cos > max_cos:
+            max_i = i
+            max_cos = cos
+
+    return max_i
+
+
+while True:
+    query = input()
+
+    if query == "Bye":
+        break
+
+    headers = {'Content-Type': 'application/json'}
+
+    data = '{"text":"' + query.strip() + '"}'
+    response = requests.post('http://10.2.6.249:8010/shallow_parse_hin', headers=headers, data=data.encode('utf-8'))
+
+    lemmatized_query = lemmatize(response.text)
+
+    response = sentences[cosine_similarity(lemmatized_query)] + sentences[cosine_similarity(lemmatized_query) + 1]
+
+    print(response)
