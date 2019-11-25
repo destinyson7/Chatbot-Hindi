@@ -19,7 +19,7 @@ def lemmatize(line):
 
     for i in range(1, len(arr_words)):
         words = re.split('\\\\t', arr_words[i])
-
+        # print(words)
         cur_sentence = cur_sentence + (words[0] + ' ')
         cur_pos = cur_pos + (words[1] + ' ')
         temp = arr_words[i].split('\'')
@@ -29,6 +29,7 @@ def lemmatize(line):
     sentences.append(cur_sentence)
     roots.append(cur_root)
     pos_tags.append(cur_pos)
+    print(cur_sentence)
 
 
 def parse():
@@ -41,6 +42,7 @@ def parse():
             data = '{"text":"' + line.strip() + '"}'
             response = requests.post('http://10.2.6.249:8010/shallow_parse_hin', headers=headers, data=data.encode('utf-8'))
 
+            # print(response.text)
             lemmatize(response.text)
 
     sentence = open("data_sentences.txt", 'w', encoding='utf-8')
@@ -74,13 +76,18 @@ for para in paragraphs:
 data = re.sub(r'\[[0-9]*\]', ' ', data)
 data = re.sub(r'\s+', ' ', data)
 data = re.sub(r'<.*>', '', data)
+data = re.sub(r'\.[0-9]+', '', data)
 data = data.replace('। ', '।\n')
 data = re.sub(r'।.', '।\n', data)
 data = data.replace('"', '$')
 data = data.split("\n")
-print(data)
+# print(data)
 
 sent = open(query + ".txt", 'w', encoding='utf-8')
 
 for i in range(0, len(data)):
     sent.write(data[i] + '\n')
+
+sent.close()
+
+parse()

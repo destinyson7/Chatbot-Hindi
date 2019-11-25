@@ -29,7 +29,9 @@ def lemmatize(line):
 
     for i in range(1, len(arr_words)):
         words = re.split('\\\\t', arr_words[i])
+        # print(arr_words[i])
         temp = arr_words[i].split('\'')
+        print(temp)
         cur_root = cur_root + (temp[1].split(',')[0] + ' ')
 
     return cur_root
@@ -99,7 +101,7 @@ while True:
 
     data = '{"text":"' + query.strip() + '"}'
     response = requests.post('http://10.2.6.249:8010/shallow_parse_hin', headers=headers, data=data.encode('utf-8'))
-
+    print(response.text)
     lemmatized_query = lemmatize(response.text)
 
     response = sentences[cosine_similarity(lemmatized_query)] + sentences[cosine_similarity(lemmatized_query) + 1]
