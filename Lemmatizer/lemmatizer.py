@@ -8,7 +8,6 @@ pos_tags = []
 
 
 def lemmatize(line):
-
     cur_root = ""
     cur_pos = ""
     cur_sentence = ""
