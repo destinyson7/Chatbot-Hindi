@@ -1,58 +1,52 @@
 import sys
-count = 0
+import re
+import requests
 
 sentences = []
 roots = []
 pos_tags = []
 
-cur_sentence = ""
-cur_root = ""
-cur_pos = ""
 
-with open(sys.argv[1], 'r') as f:
+def lemmatize(line):
+
+    cur_root = ""
+    cur_pos = ""
+    cur_sentence = ""
+    arr_words = re.split("\.[0-9]\\\\t", line)
+
+    for i in range(1, len(arr_words)):
+        words = re.split('\\\\t', arr_words[i])
+
+        cur_sentence = cur_sentence + (words[0] + ' ')
+        cur_pos = cur_pos + (words[1] + ' ')
+        temp = arr_words[i].split('\'')
+
+        cur_root = cur_root + (temp[1].split(',')[0] + ' ')
+
+    sentences.append(cur_sentence)
+    roots.append(cur_root)
+    pos_tags.append(cur_pos)
+
+
+with open('./../Data/clean_data.txt', 'r') as f:
     for line in f:
 
-        if line[0] == "<" and line[1] == "/" and line[2] == "S":
-            sentences.append(cur_sentence)
-            roots.append(cur_root)
-            pos_tags.append(cur_pos)
+        headers = {'Content-Type': 'application/json'}
 
-            print("Sentence: " + cur_sentence)
-            print("Lemmatized Form: " + cur_root)
-            print("POS Tags: " + cur_pos)
-            print()
+        data = '{"text":"' + line.strip() + '"}'
+        response = requests.post('http://10.2.6.249:8010/shallow_parse_hin', headers=headers, data=data.encode('utf-8'))
 
-            cur_sentence = ""
-            cur_root = ""
-            cur_pos = ""
+        lemmatize(response.text)
 
-        elif line[0] == ")":
-            continue
+sentence = open("data_sentences.txt", 'w', encoding='utf-8')
+root = open("data_roots.txt", 'w', encoding='utf-8')
+pos_tag = open("data_pos_tags.txt", 'w', encoding='utf-8')
 
-        else:
+for i in range(0, len(sentences)):
+    sentence.write(sentences[i] + '\n')
+    pos_tag.write(pos_tags[i] + '\n')
+    root.write(roots[i] + '\n')
 
-            line1 = line.split(' ')
-
-            if line1[0] == "<Sentence":
-                count = count + 1
-                print("<Sentence_id=%d>" % (count))
-
-            elif line1[1] == "((":
-                continue
-
-            else:
-                if len(line1[2].split('<')) == 1:
-                    cur_sentence = cur_sentence + line1[1] + " "
-                    cur_root = cur_root + line1[4].split(',')[0].split('\'')[1] + " "
-                    cur_pos = cur_pos + line1[2] + " "
-
-                else:
-                    cur_sentence = cur_sentence + line1[1] + " "
-                    cur_root = cur_root + line1[3].split(',')[0].split('\'')[1] + " "
-                    cur_pos = cur_pos + line1[2].split('<')[0] + " "
-
-                # print(line1[1] + "\t" + line1[4].split(',')[0].split('\'')[1] + "\t" + line1[2])
-
-# print(sentences)
-# print(roots)
-# print(pos_tags)
+sentence.close()
+root.close()
+pos_tag.close()
