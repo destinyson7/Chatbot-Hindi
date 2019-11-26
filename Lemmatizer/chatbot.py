@@ -104,6 +104,12 @@ while True:
     print(response.text)
     lemmatized_query = lemmatize(response.text)
 
-    response = sentences[cosine_similarity(lemmatized_query)] + sentences[cosine_similarity(lemmatized_query) + 1]
+    print(cosine_similarity(lemmatized_query))
+
+    try:
+        response = sentences[cosine_similarity(lemmatized_query)] + sentences[cosine_similarity(lemmatized_query) + 1]
+
+    except:
+        response = sentences[cosine_similarity(lemmatized_query)]
 
     print(response)

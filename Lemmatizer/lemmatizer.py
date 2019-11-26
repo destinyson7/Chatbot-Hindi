@@ -59,7 +59,7 @@ def parse():
     pos_tag.close()
 
 
-query = 'भारत'
+query = input("आप आज किस विषय से सम्बंधित वार्तालाप करना चाहेंगे ?")
 url_path = urllib.parse.quote(query)
 raw_html = urllib.request.urlopen("https://hi.wikipedia.org/wiki/" + url_path)
 raw_html = raw_html.read()
@@ -77,15 +77,27 @@ data = re.sub(r'\[[0-9]*\]', ' ', data)
 data = re.sub(r'\s+', ' ', data)
 data = re.sub(r'<.*>', '', data)
 data = re.sub(r'\.[0-9]+', '', data)
+data = re.sub(r'\.[१२३४५६७८९]+', '', data)
 data = data.replace('। ', '।\n')
 data = re.sub(r'।.', '।\n', data)
 data = data.replace('"', '$')
+data = re.sub(r'\.\.+', '.', data)
+data = re.sub(r'^[\. ।]+', '', data, flags=re.MULTILINE)
 data = data.split("\n")
 # print(data)
 
 sent = open(query + ".txt", 'w', encoding='utf-8')
 
 for i in range(0, len(data)):
+    if not data[i].strip():
+        continue
+
+    if re.match(r'^\s*$', data[i].strip()):
+        continue
+
+    # if data[i].strip() == '।' and len(data[i].strip()) == 1:
+    #     continue
+
     sent.write(data[i] + '\n')
 
 sent.close()
