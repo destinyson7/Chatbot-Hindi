@@ -49,6 +49,7 @@ def parse():
     root = open("data_roots.txt", 'w', encoding='utf-8')
     pos_tag = open("data_pos_tags.txt", 'w', encoding='utf-8')
 
+    sentence.write(query + '\n')
     for i in range(0, len(sentences)):
         sentence.write(sentences[i] + '\n')
         pos_tag.write(pos_tags[i] + '\n')
@@ -59,7 +60,7 @@ def parse():
     pos_tag.close()
 
 
-query = input("आप आज किस विषय से सम्बंधित वार्तालाप करना चाहेंगे ?")
+query = input("आप आज किस विषय से सम्बंधित वार्तालाप करना चाहेंगे ?\n")
 url_path = urllib.parse.quote(query)
 raw_html = urllib.request.urlopen("https://hi.wikipedia.org/wiki/" + url_path)
 raw_html = raw_html.read()

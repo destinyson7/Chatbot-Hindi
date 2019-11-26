@@ -6,9 +6,14 @@ roots = []
 pos_tags = []
 stopwords = []
 
+cnt = 0
 with open('data_sentences.txt', 'r') as f:
     for line in f:
-        sentences.append(line.split("\n")[0])
+        cnt = cnt + 1
+        if cnt == 1:
+            topic = line
+        else:
+            sentences.append(line.split("\n")[0])
 
 with open('data_roots.txt', 'r') as f:
     for line in f:
@@ -31,7 +36,7 @@ def lemmatize(line):
         words = re.split('\\\\t', arr_words[i])
         # print(arr_words[i])
         temp = arr_words[i].split('\'')
-        print(temp)
+        # print(temp)
         cur_root = cur_root + (temp[1].split(',')[0] + ' ')
 
     return cur_root
@@ -44,7 +49,10 @@ def cosine_similarity(first_sentence):
     max_i = -1
 
     for i in range(0, len(sentences)):
-        array_second = sentences[i].split(" ")
+        if sentences[i].strip():
+            array_second = sentences[i].split(" ")
+        else:
+            continue
 
         # We will also remove all the stop words from both the sets later
 
@@ -91,25 +99,36 @@ def cosine_similarity(first_sentence):
     return max_i
 
 
+print("नमस्ते , मैं आपका दोस्त मनीष। आप मुझसे " + topic.split('\n')[0] + " के बारे में कुछ भी पूछ सकते है ।")
 while True:
     query = input()
 
-    if query == "Bye":
+    if query == "नमस्ते":
+        print('मनीष: अलविदा दोस्त , आपका दिन शुभ हो।')
         break
+
+    if query == "धन्यवाद":
+        print("मनीष: ये तो मेरा सौभाग्य है।")
+        continue
 
     headers = {'Content-Type': 'application/json'}
 
     data = '{"text":"' + query.strip() + '"}'
     response = requests.post('http://10.2.6.249:8010/shallow_parse_hin', headers=headers, data=data.encode('utf-8'))
-    print(response.text)
+    # print(response.text)
     lemmatized_query = lemmatize(response.text)
 
-    print(cosine_similarity(lemmatized_query))
+    max_i = cosine_similarity(lemmatized_query)
 
-    try:
-        response = sentences[cosine_similarity(lemmatized_query)] + sentences[cosine_similarity(lemmatized_query) + 1]
+    if len(sentences[max_i]) < 4:
+        response = 'माफ़ कीजिए मेरे पास आपके सवाल का जवाब नहीं है'
 
-    except:
-        response = sentences[cosine_similarity(lemmatized_query)]
+    else:
 
-    print(response)
+        try:
+            response = sentences[max_i] + sentences[max_i + 1]
+
+        except:
+            response = sentences[max_i]
+
+    print("मनीष: " + response)
