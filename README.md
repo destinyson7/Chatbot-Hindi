@@ -6,7 +6,7 @@ To Design a Rule-based Chatbot which interacts with the user about any topic in 
 
 ## Running the Chabot
 
-Go to the Lemmatizer Directory. Run the python script.
+Go to the Lemmatizer Directory. Run the python script. For reference, the list of stop words used is present in the Lemmatizer Directory as a text file
 
 ```python
 python3 lemmatizer.py
@@ -21,17 +21,18 @@ python3 chatbot.py
 ```
 Converse with the chatbot.
 
+
 <b> WARNING: </b> Run on IIIT Network or on IIIT VPN/Proxy Only. The parser works on IIIT Network/Proxy Only.
 
 
 ## Team:
 <ul>
-    <li > Tanish Lad, 2018114005 </li>
-    <li > Jashn Arora, 2018114006 </li>
+    <li> Tanish Lad, 2018114005 </li>
+    <li> Jashn Arora, 2018114006 </li>
 </ul>
 
 ## Under the Guidance of:
 <ul>
-    <li > Radhika Mamidi, Associate Professor, LTRC, IIIT - H </li>
-    <li > Lalitha Kameswari, CL2 TA, IIIT - H </li>
+    <li> Radhika Mamidi, Associate Professor, LTRC, IIIT - H </li>
+    <li> Lalitha Kameswari, CL2 TA, IIIT - H </li>
 </ul>
