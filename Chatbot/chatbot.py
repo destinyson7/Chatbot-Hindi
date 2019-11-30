@@ -7,7 +7,7 @@ pos_tags = []
 stopwords = []
 
 cnt = 0
-with open('data_sentences.txt', 'r') as f:
+with open('./../Data/data_sentences.txt', 'r') as f:
     for line in f:
         cnt = cnt + 1
         if cnt == 1:
@@ -15,15 +15,15 @@ with open('data_sentences.txt', 'r') as f:
         else:
             sentences.append(line.split("\n")[0])
 
-with open('data_roots.txt', 'r') as f:
+with open('./../Data/data_roots.txt', 'r') as f:
     for line in f:
         roots.append(line.split("\n")[0])
 
-with open('data_pos_tags.txt', 'r') as f:
+with open('./../Data/data_pos_tags.txt', 'r') as f:
     for line in f:
         pos_tags.append(line.split("\n")[0])
 
-with open('stop_words.txt', 'r') as f:
+with open('./../Lemmatizer/stop_words.txt', 'r') as f:
     for line in f:
         stopwords.append(line.split("\n")[0])
 
@@ -51,10 +51,10 @@ def cosine_similarity(first_sentence):
     for i in range(0, len(sentences)):
         if sentences[i].strip():
             array_second = sentences[i].split(" ")
+
+
         else:
             continue
-
-        # We will also remove all the stop words from both the sets later
 
         set_first = {word for word in array_first if not word in stopwords}
         set_second = {word for word in array_second if not word in stopwords}
@@ -104,7 +104,7 @@ while True:
     query = input()
 
     if query == "नमस्ते":
-        print('मनीष: अलविदा दोस्त , आपका दिन शुभ हो।')
+        print('मनीष: अलविदा दोस्त, आपका दिन शुभ हो।')
         break
 
     if query == "धन्यवाद":
@@ -121,7 +121,7 @@ while True:
     max_i = cosine_similarity(lemmatized_query)
 
     if len(sentences[max_i]) < 4:
-        response = 'माफ़ कीजिए मेरे पास आपके सवाल का जवाब नहीं है'
+        response = 'माफ़ कीजिए मेरे पास आपके सवाल का जवाब नहीं है |'
 
     else:
 

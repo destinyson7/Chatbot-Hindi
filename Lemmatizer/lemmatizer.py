@@ -33,21 +33,24 @@ def lemmatize(line):
 
 
 def parse():
-    name = query + ".txt"
+    name = "./../Data/" + query + ".txt"
+    # print(1)
     with open(name, 'r') as f:
         for line in f:
+            # print(2)
 
             headers = {'Content-Type': 'application/json'}
 
             data = '{"text":"' + line.strip() + '"}'
             response = requests.post('http://10.2.6.249:8010/shallow_parse_hin', headers=headers, data=data.encode('utf-8'))
+            # print(3)
 
             # print(response.text)
             lemmatize(response.text)
 
-    sentence = open("data_sentences.txt", 'w', encoding='utf-8')
-    root = open("data_roots.txt", 'w', encoding='utf-8')
-    pos_tag = open("data_pos_tags.txt", 'w', encoding='utf-8')
+    sentence = open("./../Data/data_sentences.txt", 'w', encoding='utf-8')
+    root = open("./../Data/data_roots.txt", 'w', encoding='utf-8')
+    pos_tag = open("./../Data/data_pos_tags.txt", 'w', encoding='utf-8')
 
     sentence.write(query + '\n')
     for i in range(0, len(sentences)):
@@ -66,7 +69,6 @@ raw_html = urllib.request.urlopen("https://hi.wikipedia.org/wiki/" + url_path)
 raw_html = raw_html.read()
 
 html = bs.BeautifulSoup(raw_html, 'lxml')
-
 paragraphs = html.find_all('p')
 
 data = ''
@@ -87,7 +89,7 @@ data = re.sub(r'^[\. ।]+', '', data, flags=re.MULTILINE)
 data = data.split("\n")
 # print(data)
 
-sent = open(query + ".txt", 'w', encoding='utf-8')
+sent = open("./../Data/" + query + ".txt", 'w', encoding='utf-8')
 
 for i in range(0, len(data)):
     if not data[i].strip():
